@@ -8,16 +8,13 @@ var ncmMask2D = new StringMask('00');
 
 module.exports = maskFactory({
 	clearValue: function(rawValue) {
-		return rawValue.toString().replace(/\D/g, '').slice(0, 8);
+		return rawValue.toString().replace(/[^0-9]/g, '').slice(0, 8);
 	},
 	format: function(cleanValue) {
-		var formatedValue;
-		if (cleanValue.length < 8) {
-			formatedValue = ncmMask2D.apply(cleanValue) || '';
-		} else {
-			formatedValue = ncmMask8D.apply(cleanValue);
+		if (cleanValue.length === 2) {
+			return ncmMask2D.apply(cleanValue) || '';
 		}
-		return formatedValue.replace(/\D$/, '');
+		return ncmMask8D.apply(cleanValue);
 	},
 	validations: {
 		ncm: function(value) {

@@ -17,10 +17,10 @@
 	<form name="form" ng-controller="ctrl">
 		<h2>ui-br-ncm-mask</h2>
 		<input type="text" name="field17" ng-model="initializedNcm" ui-br-ncm-mask><br>
-		<span ng-bind="initializedNcm"></span> - {{form.field17.$error}}<br>
+		<span ng-bind="initializedNcm"></span> Erro - {{form.field17.$error}}<br>
 		<br>
 		<input type="text" name="field18" ng-model="ncm" ng-model-options="{allowInvalid:true}" ui-br-ncm-mask><br>
-		<span ng-bind="ncm"></span> - {{form.field18.$error}}<br>
+		<span ng-bind="ncm"></span> Erro - {{form.field18.$error}}<br>
 		<br>
 	</form>
 </body>
