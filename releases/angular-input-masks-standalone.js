@@ -5218,9 +5218,9 @@ module.exports = maskFactory({
 	},
 	format: function(cleanValue) {
 		if (cleanValue.length === 2) {
-			return ncmMask2D.apply(cleanValue) || '';
+			return (ncmMask2D.apply(cleanValue) || '').replace(/[^0-9]$/, '');
 		}
-		return ncmMask8D.apply(cleanValue);
+		return (ncmMask8D.apply(cleanValue) || '').replace(/[^0-9]$/, '');
 	},
 	validations: {
 		ncm: function(value) {
