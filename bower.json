@@ -6,7 +6,7 @@
     "Theo Renck <carlos.renck@zeta.com.br>"
   ],
   "description": "Personalized and localized input masks for AngularJS",
-  "main": "angular-input-masks-standalone.js",
+  "main": "releases/angular-input-masks-standalone.js",
   "keywords": [
     "angular",
     "input",
