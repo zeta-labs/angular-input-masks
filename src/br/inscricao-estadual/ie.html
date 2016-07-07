@@ -34,6 +34,21 @@
 		<input type="text" name="field20" ng-model="inscEst" ng-model-options="{allowInvalid:true}" ui-br-ie-mask="state"><br>
 		<span ng-bind="state"></span>: <span ng-bind="inscEst"></span> - <span ng-bind="form.field20.$error | json"></span><br>
 		<br>
+		<select ng-model="state2" ng-options="state for state in states">
+			<option value="">--</option>
+		</select>
+		<input
+			type="text"
+			name="field29"
+			ng-model="inscEst2"
+			ng-model-options="{allowInvalid:true}"
+			ui-br-ie-mask="state2"
+			ui-br-ie-mask-allow-invalid="true">
+		<br>
+		<span ng-bind="state2"></span>:
+		<span ng-bind="inscEst2"></span> -
+		<span ng-bind="form.field29.$error | json"></span><br>
+		<br>
 	</form>
 </body>
 </html>

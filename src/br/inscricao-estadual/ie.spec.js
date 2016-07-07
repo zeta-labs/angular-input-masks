@@ -43,6 +43,27 @@ describe('ui.utils.masks.number', function() {
 			inputIE.sendKeys('P-35887477.0/971');
 			expect(valid.getText()).toEqual('{}');
 		});
+		it('should be valid if option "allowInvalid" is setted to true and has an invalid input', function() {
+			var inputIE = element(by.model('inscEst2')),
+				inputUF = element(by.model('state2')),
+				valid = element(by.binding('form.field29.$error'));
+
+			inputUF.all(by.tagName('option')).get(11).click();
+			inputIE.clear();
+			inputIE.sendKeys('0623079040');
+			expect(valid.getText()).toEqual('{}');
+		});
+
+		it('should be valid if option "allowInvalid" is setted to true and has a valid input', function() {
+			var inputIE = element(by.model('inscEst2')),
+				inputUF = element(by.model('state2')),
+				valid = element(by.binding('form.field29.$error'));
+
+			inputUF.all(by.tagName('option')).get(11).click();
+			inputIE.clear();
+			inputIE.sendKeys('0623079040081');
+			expect(valid.getText()).toEqual('{}');
+		});
 
 		it('should apply a I.E. mask while the user is typping:', function() {
 			var BS = protractor.Key.BACK_SPACE;

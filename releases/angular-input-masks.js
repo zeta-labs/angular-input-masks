@@ -248,11 +248,10 @@ function BrIeMaskDirective($parse) {
 		while (masks[i].chars && masks[i].chars < clearValue(value).length && i < masks.length - 1) {
 			i++;
 		}
-
 		return masks[i].mask;
 	}
 
-	function applyIEMask(value, uf) {
+	function applyIEMask(value, uf, allowInvalid) {
 		var mask = getMask(uf, value);
 
 		if (!mask) {
@@ -260,7 +259,13 @@ function BrIeMaskDirective($parse) {
 		}
 
 		var processed = mask.process(clearValue(value));
-		var formatedValue = processed.result || '';
+		var formatedValue = null;
+		if (allowInvalid) {
+			formatedValue = processed.result || clearValue(value);
+		} else {
+			formatedValue = processed.result || '';
+		}
+
 		formatedValue = formatedValue.trim().replace(/[^0-9]$/, '');
 
 		if (uf === 'SP' && /^p/i.test(value)) {
@@ -281,7 +286,7 @@ function BrIeMaskDirective($parse) {
 					return value;
 				}
 
-				return applyIEMask(value, state);
+				return applyIEMask(value, state, attrs.uiBrIeMaskAllowInvalid);
 			}
 
 			function parser(value) {
@@ -289,7 +294,7 @@ function BrIeMaskDirective($parse) {
 					return value;
 				}
 
-				var formatedValue = applyIEMask(value, state);
+				var formatedValue = applyIEMask(value, state, attrs.uiBrIeMaskAllowInvalid);
 				var actualValue = clearValue(formatedValue);
 
 				if (ctrl.$viewValue !== formatedValue) {
@@ -308,6 +313,9 @@ function BrIeMaskDirective($parse) {
 			ctrl.$parsers.push(parser);
 
 			ctrl.$validators.ie = function validator(modelValue) {
+				if (attrs.uiBrIeMaskAllowInvalid) {
+					return ctrl.$isEmpty(modelValue) || true;
+				}
 				return ctrl.$isEmpty(modelValue) || BrV.ie(state).validate(modelValue);
 			};
 
