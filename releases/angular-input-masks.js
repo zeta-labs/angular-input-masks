@@ -1,7 +1,7 @@
 /**
  * angular-input-masks
  * Personalized input masks for AngularJS
- * @version v2.4.0
+ * @version v2.5.0
  * @link http://github.com/assisrafael/angular-input-masks
  * @license MIT
  */
@@ -253,25 +253,26 @@ function BrIeMaskDirective($parse) {
 
 	function applyIEMask(value, uf, allowInvalid) {
 		var mask = getMask(uf, value);
-
 		if (!mask) {
 			return value;
 		}
 
 		var processed = mask.process(clearValue(value));
 		var formatedValue = null;
+
 		if (allowInvalid) {
-			formatedValue = processed.result || clearValue(value);
+			if (value.length !== clearValue(mask.pattern).length) {
+				formatedValue = value;
+			} else {
+				formatedValue = processed.valid ? processed.result : clearValue(value);
+			}
 		} else {
 			formatedValue = processed.result || '';
 		}
-
 		formatedValue = formatedValue.trim().replace(/[^0-9]$/, '');
-
 		if (uf === 'SP' && /^p/i.test(value)) {
 			return 'P' + formatedValue;
 		}
-
 		return formatedValue;
 	}
 
