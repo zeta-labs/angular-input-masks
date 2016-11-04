@@ -70,6 +70,12 @@ function NumberMaskDirective($locale, $parse, PreFormatters, NumberMasks) {
 
 			element.on('blur', clearViewValueIfMinusSign);
 
+			if (ctrl.$options && ctrl.$options.updateOn === 'blur') {
+				element.on('keyup', function() {
+					parser(ctrl.$viewValue);
+				});				
+			}
+
 			ctrl.$formatters.push(formatter);
 			ctrl.$parsers.push(parser);
 
